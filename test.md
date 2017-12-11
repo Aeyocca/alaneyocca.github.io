@@ -7,4 +7,4 @@ editor_options:
 
 This is a quick, in no way comprehensive guide to get the differential Gene Coexpression Network Analysis written by Henry Priest https://github.com/hdpriest/dGCNA
 
-<img src="/pictures/Japan.png" alt="Japan">
+<img src="/Japan.png" alt="Japan">
