@@ -21,5 +21,5 @@ Navigate to the NetworkCalculator/src/networkCalcPackage directory, load java de
 `$ module load Java/jdk1.8.0`  
 `$ javac *java`  
 
-This should create a list of .class files for each .java file:
-<img src="/ll_networkCalcPackage.png" alt"ll_networkCalcPackage">
+This should create a list of .class files for each .java file:  
+<img src="/networkCalcPackage.png" alt"ll_networkCalcPackage">
