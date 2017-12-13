@@ -58,7 +58,7 @@ This section will discuss the input and outputs from the construct command.
   
 #### 1.) Inputs  
 Here is the help message for the compare function:  
-<img src="/help_construct" alt="help_construct">  
+<img src="/help_construct.png" alt="help_construct">  
   
 ###### -a -m
 Admittedly, I have no idea what any of these parameters are or what they mean. The values I arbitrarily chose is shown below in the job sumbission script.  
@@ -82,4 +82,51 @@ Specify the number of computer threads to utilize. I try to get this value to be
 
 Here is an example submission script for constructing a gene coexpression network for the C3 dataframe:  
   
+<img src="/qsub_construct.png" alt="qsub_construct">  
   
+I have 140 hours of walltime requested here. However, I believe it took less than 48 hours to finish. Additionally, you can see `-t 1` is set, if that were higher, it would run even faster. An example output file from this job is contained in this repository for reference.  
+  
+#### Outputs  
+Here is the structure of the output directory:  
+  
+<img src="output.png" alt"output">  
+  
+I believe TOM.cytoscape.raw.tab is the file required for further analysis. WOW, 72Gb large!  
+  
+## dGCNA compare  
+Admittedly, I have not gotten this to run successfully yet, but I will share things I have tried so far so you will not waste as much time.  
+#### Inputs  
+Here is the help message for the compare function:  
+  
+<img src="help_compare.png" alt="help_compare">  
+  
+###### -MN -MP -na -nm -pa -pm  
+I have no idea what these parameters are, or what they mean. However, I believe some inputs for these values will cause the program to balloon up memory usage (perhaps by making it divide by 0 or something similar). Therefore, I recommend keeping that in mind as a possible reason the program is not running if you have any issues. This is what your error file might look like if this might be the case.  
+  
+<img src="error_parameter.png" alt="error_parameter">  
+  
+######  -c  
+Same as above.  
+###### -o
+Specify the name of the output file. As I have yet to finish running this component, I am not sure what the output will look like.  
+###### -t  
+Same as above.  
+###### -e1 -e2  
+These will be the expression frames output from the construct step, which I believe are the TOM.cytoscape.raw.tab files. This leads me to point out the memory requirements for this step.  
+###### Memory considerations  
+As the input expression frames are ~70Gb each, a large amount of memory should be requested from the hpcc. I have yet to determine what is optimal, I have been requesting 500 Gb. For running java applications, the amount of memory to be used needs to also be specified on the command line in addition to the submission script. This can be done with the `-Xmx` flag:  
+`$ java -Xmx495g networkCalcPackage.NetworkCalculator compare ....`  
+I try to leave the `-Xmx` request slightly smaller than the maximum hpcc request to avoid any issues  
+I am still experiencing problems:  
+  
+<img src="error_GC.png" alt="error_GC">  
+  
+I would like to point you to this thread by the hpcc staff: http://bioinformatics.plantbiology.msu.edu/display/BIOIN/Java+Applications+and+HPCC  
+  
+I am currently playing around with setting the right amount of Garbage Collection threads. MAKE SURE THIS DOESN'T EXCEED THE NUMBER OF PROCESSORS REQUESTED FROM THE HPCC. The number of GC threads is calculated by multiplying the requested GC threads on the command line by the number of threads requested on the command line. Also make sure to have one more processor than you do GC threads requested to avoid issues.  
+  
+<img src="GC_ex.png" alt="GC-ex">  
+  
+Here is my most recent error file, it is ambiguous so I have no comments on it, but if you see this file, know you are not alone!!
+  
+<img src="error_mr.png" alt="error_mr">  
