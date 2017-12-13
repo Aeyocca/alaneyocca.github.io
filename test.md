@@ -42,11 +42,14 @@ Next, these .jar files need to be added to the environmental variable $CLASSPATH
 *Remember to run these commands in the /src/ directory where these jar file are, otherwise, the java interpreter might not be able to find them*  
 Adding ${CLASSPATH}: to the command allows you to append these jar files to the $CLASSPATH variable instead of just overwritting the current contents.  
   
-In addition to these .jar files, you need to add the current directory to the $CLASSPATH variable so the java interpreter can identify all scripts found in the NetworkCalculator package:  
-`$ export $CLASSPATH=${CLASSPATH}:.`  
+In addition to these .jar files, you need to add the current directory (specified by a dot) to the $CLASSPATH variable so the java interpreter can identify all scripts found in the NetworkCalculator package:  
+`$ export CLASSPATH=${CLASSPATH}:.`  
   
+To check everything was added corrected, check it out:  
+<img src="/classpath.png" alt="classpath">  
 
-
+#### 3.) Inputs
+Now you are ready to run the scripts!
 
 
 
