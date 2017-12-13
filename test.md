@@ -14,10 +14,12 @@ I first downloaded it to my computer, then used the following commands to upload
 ## Getting started
 
 To get the java scripts to run, A few steps need to be taken:
-
 #### 1.)
 
 Navigate to the NetworkCalculator/src/networkCalcPackage directory, load java developers toolkit, then compile the .jar files.   
 `$ cd NetworkCalculator/src/networkCalcPackage`  
 `$ module load Java/jdk1.8.0`  
 `$ javac *java`  
+
+This should create a list of .class files for each .java file:
+<img src="/ll_networkCalcPackage.png" alt"ll_networkCalcPackage">
