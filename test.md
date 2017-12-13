@@ -20,7 +20,7 @@ Navigate to the NetworkCalculator/src/networkCalcPackage directory, load java de
 `$ javac *java`  
 
 This should create a list of .class files for each .java file:  
-<img src="/networkCalcPackage.png" alt="ll_networkCalcPackage">
+<img src="/pictures/networkCalcPackage.png" alt="ll_networkCalcPackage">
 
 #### 2.)
 
@@ -30,7 +30,7 @@ Download the dependencies. Five java packages are required to run these scripts.
   
 Inside the folder downloaded from the internet for each of the five packages, there should be a /lib/ directory. In there you should find the executable .jar file for the package. I chose to copy this jar file to the NetworkCalculator/src/ directory.  
 Now you should have these five package .jar files in your src/ directory:  
-<img src="/packages.png" alt="packages">  
+<img src="/pictures/packages.png" alt="packages">  
 Next, these .jar files need to be added to the environmental variable $CLASSPATH. This variable is used by the java interpreter to search for the files to be run. That terminology may not be entirely correct, but that is how I understand it:  
 `$ export CLASSPATH=${CLASSPATH}:commons-lang3-3.6.jar`  
 `$ export CLASSPATH=${CLASSPATH}:commons-math3-3.6.1.jar`  
@@ -45,20 +45,20 @@ In addition to these .jar files, you need to add the current directory (specifie
   
 To check everything was added corrected, check it out:
   
-<img src="/classpath.png" alt="classpath">  
+<img src="/pictures/classpath.png" alt="classpath">  
   
 Now you are ready to run the scripts!  
 ## dGCNA Construct
 Again, I am not claiming to comprehensively understand this program. The only thing I can promise is this guide will help you to get this to run. Whether it has run correctly, I leave to you. I will simply share my experience, inputs, and outputs.  
   
 Here is the help message from the NetworkCalculator package:  
-<img src="/help_all.png" alt="help_all">  
+<img src="/pictures/help_all.png" alt="help_all">  
   
 This section will discuss the input and outputs from the construct command.  
   
 #### 1.) Inputs  
 Here is the help message for the compare function:  
-<img src="/help_construct.png" alt="help_construct">  
+<img src="/pictures/help_construct.png" alt="help_construct">  
   
 ###### -a -m
 Admittedly, I have no idea what any of these parameters are or what they mean. The values I arbitrarily chose is shown below in the job sumbission script.  
@@ -69,7 +69,7 @@ I use `-c pcc` as I am more familiar with that.
 The data file lists the geneIDs in the first column. Each additional column is a datapoint (in my case time) with an expression value in each cell. The following is an example with some additional information about the expression frames.  
 *The construct command must be run for EACH treatment considered. Here, I was comparing CAM and C3 photsynthesis, so I had to run the compare command twice, once for CAM and once for C3 dataframes*  
   
-<img src="/df_stats.png" alt="df_stats">  
+<img src="/pictures/df_stats.png" alt="df_stats">  
   
 This dataframe has: 44,488 lines, 13 columns, and is 5.3 Mb large.  
   
@@ -82,14 +82,14 @@ Specify the number of computer threads to utilize. I try to get this value to be
 
 Here is an example submission script for constructing a gene coexpression network for the C3 dataframe:  
   
-<img src="/qsub_construct.png" alt="qsub_construct">  
+<img src="/pictures/qsub_construct.png" alt="qsub_construct">  
   
 I have 140 hours of walltime requested here. However, I believe it took less than 48 hours to finish. Additionally, you can see `-t 1` is set, if that were higher, it would run even faster. An example output file from this job is contained in this repository for reference.  
   
 #### Outputs  
 Here is the structure of the output directory:  
   
-<img src="output.png" alt"output">  
+<img src="/pictures/output.png" alt"output">  
   
 I believe TOM.cytoscape.raw.tab is the file required for further analysis. WOW, 72Gb large!  
   
@@ -98,12 +98,12 @@ Admittedly, I have not gotten this to run successfully yet, but I will share thi
 #### Inputs  
 Here is the help message for the compare function:  
   
-<img src="help_compare.png" alt="help_compare">  
+<img src="/pictures/help_compare.png" alt="help_compare">  
   
 ###### -MN -MP -na -nm -pa -pm  
 I have no idea what these parameters are, or what they mean. However, I believe some inputs for these values will cause the program to balloon up memory usage (perhaps by making it divide by 0 or something similar). Therefore, I recommend keeping that in mind as a possible reason the program is not running if you have any issues. This is what your error file might look like if this might be the case.  
   
-<img src="error_parameter.png" alt="error_parameter">  
+<img src="/pictures/error_parameter.png" alt="error_parameter">  
   
 ######  -c  
 Same as above.  
@@ -119,14 +119,14 @@ As the input expression frames are ~70Gb each, a large amount of memory should b
 I try to leave the `-Xmx` request slightly smaller than the maximum hpcc request to avoid any issues  
 I am still experiencing problems:  
   
-<img src="error_GC.png" alt="error_GC">  
+<img src="/pictures/error_GC.png" alt="error_GC">  
   
 I would like to point you to this thread by the hpcc staff: http://bioinformatics.plantbiology.msu.edu/display/BIOIN/Java+Applications+and+HPCC  
   
 I am currently playing around with setting the right amount of Garbage Collection threads. MAKE SURE THIS DOESN'T EXCEED THE NUMBER OF PROCESSORS REQUESTED FROM THE HPCC. The number of GC threads is calculated by multiplying the requested GC threads on the command line by the number of threads requested on the command line. Also make sure to have one more processor than you do GC threads requested to avoid issues.  
   
-<img src="GC_ex.png" alt="GC-ex">  
+<img src="/pictures/GC_ex.png" alt="GC-ex">  
   
 Here is my most recent error file, it is ambiguous so I have no comments on it, but if you see this file, know you are not alone!!
   
-<img src="error_mr.png" alt="error_mr">  
+<img src="/pictures/error_mr.png" alt="error_mr">  
