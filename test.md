@@ -17,7 +17,7 @@ To get the java scripts to run, A few steps need to be taken:
 
 #### 1.)
 
-Navigate to the NetworkCalculator/src/networkCalcPackage directory, load java developers toolkit, then compile the .jar files. 
-`$ cd NetworkCalculator/src/networkCalcPackage`
-`$ module load Java/jdk1.8.0`
-`$ javac *java`
+Navigate to the NetworkCalculator/src/networkCalcPackage directory, load java developers toolkit, then compile the .jar files.   
+`$ cd NetworkCalculator/src/networkCalcPackage`  
+`$ module load Java/jdk1.8.0`  
+`$ javac *java`  
