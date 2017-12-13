@@ -45,11 +45,43 @@ Adding ${CLASSPATH}: to the command allows you to append these jar files to the 
 In addition to these .jar files, you need to add the current directory (specified by a dot) to the $CLASSPATH variable so the java interpreter can identify all scripts found in the NetworkCalculator package:  
 `$ export CLASSPATH=${CLASSPATH}:.`  
   
-To check everything was added corrected, check it out:  
+To check everything was added corrected, check it out:
+  
 <img src="/classpath.png" alt="classpath">  
+  
+Now you are ready to run the scripts!  
+## dGCNA Construct
+Again, I am not claiming to comprehensively understand this program. The only thing I can promise is this guide will help you to get this to run. Whether it has run correctly, I leave to you. I will simply share my experience, inputs, and outputs.  
+  
+Here is the help message from the NetworkCalculator package:  
+<img src="/help_all.png" alt="help_all">  
+  
+This section will discuss the input and outputs from the construct command.  
+  
+#### 1.) Inputs  
+Here is the help message for the compare function:  
+<img src="/help_construct" alt="help_construct">  
+  
+###### -a -m
+Admittedly, I have no idea what any of these parameters are or what they mean. The values I arbitrarily chose is shown below in the job sumbission script.  
+###### -c <correlation>    
+The options for this command I have seen are `-c pcc` (pearson's correlation coefficient), `-c spearman` (Spearman's rank coefficient), or `-c gini` (Gini coefficient).  
+I use `-c pcc` as I am more familiar with that.  
+###### -d  
+The data file lists the geneIDs in the first column. Each additional column is a datapoint (in my case time) with an expression value in each cell. The following is an example with some additional information about the expression frames.  
+*The construct command must be run for EACH treatment considered. Here, I was comparing CAM and C3 photsynthesis, so I had to run the compare command twice, once for CAM and once for C3 dataframes*  
+  
+<img src="/df_stats.png" alt="df_stats">  
+  
+This dataframe has: 44,488 lines, 13 columns, and is 5.3 Mb large.  
+  
+###### -M  
+Mask values below a certain threshold.  
+###### -o  
+Specify the name of the output directory.  
+###### -t  
+Specify the number of computer threads to utilize. I try to get this value to be close to the number of processors requested in the submission script, leaving a little room in case another processor is needed for something.  
 
-#### 3.) Inputs
-Now you are ready to run the scripts!
-
-
-
+Here is an example submission script for constructing a gene coexpression network for the C3 dataframe:  
+  
+  
