@@ -22,4 +22,4 @@ Navigate to the NetworkCalculator/src/networkCalcPackage directory, load java de
 `$ javac *java`  
 
 This should create a list of .class files for each .java file:  
-<img src="/networkCalcPackage.png" alt"ll_networkCalcPackage">
+<img src="/networkCalcPackage.png" alt="ll_networkCalcPackage">
